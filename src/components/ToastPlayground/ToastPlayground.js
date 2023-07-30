@@ -7,6 +7,10 @@ import styles from './ToastPlayground.module.css';
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
+    const [message, setMessage] = React.useState('');
+    const [variant, setVariant] = React.useState('notice');
+
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -24,28 +28,106 @@ function ToastPlayground() {
             Message
           </label>
           <div className={styles.inputWrapper}>
-            <textarea id="message" className={styles.messageInput} />
+            <textarea id="message" className={styles.messageInput}
+                      value={message}
+                      onChange={event => {
+                        setMessage(
+                            event.target.value
+                        );
+                      }}
+            />
           </div>
         </div>
 
-        <div className={styles.row}>
-          <div className={styles.label}>Variant</div>
-          <div
-            className={`${styles.inputWrapper} ${styles.radioWrapper}`}
-          >
-            <label htmlFor="variant-notice">
-              <input
-                id="variant-notice"
-                type="radio"
-                name="variant"
-                value="notice"
-              />
-              notice
-            </label>
+        {/*<div className={styles.row}>*/}
+        {/*  <div className={styles.label}>Variant</div>*/}
+        {/*  <div*/}
+        {/*    className={`${styles.inputWrapper} ${styles.radioWrapper}`}*/}
+        {/*  >*/}
+        {/*    <label htmlFor="variant-notice">*/}
+        {/*      <input*/}
+        {/*        id="variant-notice"*/}
+        {/*        type="radio"*/}
+        {/*        name="variant"*/}
+        {/*        value="notice"*/}
+        {/*      />*/}
+        {/*      notice*/}
+        {/*    </label>*/}
 
-            {/* TODO Other Variant radio buttons here */}
-          </div>
-        </div>
+        {/*    /!* TODO Other Variant radio buttons here *!/*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+
+
+
+
+        <fieldset>
+          <legend>
+            Variant
+          </legend>
+
+          <input
+              type="radio"
+              name="variants"
+              id="variant-notice"
+              value="notice"
+              checked={variant === "notice"}
+              onChange={event => {
+                setVariant(event.target.value)
+              }}
+          />
+          <label htmlFor="variant-notice">
+            notice
+          </label>
+          <br />
+
+          <input
+              type="radio"
+              name="variants"
+              id="variant-warning"
+              value="warning"
+              checked={variant === "warning"}
+              onChange={event => {
+                setVariant(event.target.value)
+              }}
+          />
+          <label htmlFor="variant-notice">
+            warning
+          </label>
+            <br />
+
+          <input
+              type="radio"
+              name="variants"
+              id="variant-success"
+              value="success"
+              checked={variant === "success"}
+              onChange={event => {
+                setVariant(event.target.value)
+              }}
+          />
+          <label htmlFor="variant-success">
+            success
+          </label>
+            <br />
+
+
+          <input
+              type="radio"
+              name="variants"
+              id="variant-error"
+              value="error"
+              checked={variant === "error"}
+              onChange={event => {
+                setVariant(event.target.value)
+              }}
+          />
+          <label htmlFor="variant-error">
+            error
+          </label>
+            <br />
+
+        </fieldset>
 
         <div className={styles.row}>
           <div className={styles.label} />
