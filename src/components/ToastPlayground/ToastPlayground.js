@@ -13,15 +13,20 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
     const [message, setMessage] = React.useState('');
-    const [variant, setVariant] = React.useState('notice');
+    const [variant, setVariant] = React.useState(VARIANT_OPTIONS);
 
     const [toasts, setToasts] = React.useState([]);
 
 
-    function handlePopToast() {
+    function handlePopToast(event) {
+        event.preventDefault();
+
         const id = crypto.randomUUID();
         const newToast = {message: message, variant: variant, id: id};
         setToasts([newToast, ...toasts]);
+
+        setMessage('');
+        setVariant(VARIANT_OPTIONS[0]);
     }
 
     function closeHandler(toastId) {
@@ -37,7 +42,10 @@ function ToastPlayground() {
 
         <ToastShelf toasts={toasts} closeHandler={closeHandler}/>
 
-        <div className={styles.controlsWrapper}>
+        <form
+            className={styles.controlsWrapper}
+            onSubmit={event=> handlePopToast(event)}
+        >
             <div className={styles.row}>
                 <label
                     htmlFor="message"
@@ -90,10 +98,10 @@ function ToastPlayground() {
                 <div
                     className={`${styles.inputWrapper} ${styles.radioWrapper}`}
                 >
-                    <Button onClick={() => handlePopToast()}>Pop Toast!</Button>
+                    <Button>Pop Toast!</Button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>);
 }
 
