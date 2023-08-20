@@ -18,21 +18,18 @@ const ICONS_BY_VARIANT = {
     error: AlertOctagon,
 };
 
-function Toast({message, variant, visible, closeHandler}) {
-    const Icon = ICONS_BY_VARIANT[variant];
-
-    console.log("Toast: visible: ", visible);
-    if(!visible) return null;
+function Toast({toast, closeHandler}) {
+    const Icon = ICONS_BY_VARIANT[toast.variant];
 
     return (
-        <div className={`${styles.toast} ${styles[variant]}`}>
+        <div className={`${styles.toast} ${styles[toast.variant]}`}>
             <div className={styles.iconContainer}>
                 <Icon size={24}/>
             </div>
             <p className={styles.content}>
-                {message}
+                {toast.message}
             </p>
-            <button className={styles.closeButton} onClick={()=> closeHandler()}>
+            <button className={styles.closeButton} onClick={()=> closeHandler(toast.id)}>
                 <X size={24}/>
                 <VisuallyHidden>Dismiss message</VisuallyHidden>
             </button>
