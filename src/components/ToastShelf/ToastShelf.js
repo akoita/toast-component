@@ -3,13 +3,17 @@ import React from 'react';
 import Toast from '../Toast';
 import styles from './ToastShelf.module.css';
 
-function ToastShelf({toasts, closeHandler}) {
+import { ToastContext } from '../ToastProvider';
+
+function ToastShelf() {
+    const { toasts} = React.useContext(ToastContext);
+
     console.log(toasts);
     return (
         <ol className={styles.wrapper}>
             {toasts.map((toast) => {
                 return (<li className={styles.toastWrapper} key={toast.id}>
-                    <Toast  toast={toast} closeHandler={closeHandler}/>
+                    <Toast  toast={toast}/>
                 </li>)
             })}
         </ol>
