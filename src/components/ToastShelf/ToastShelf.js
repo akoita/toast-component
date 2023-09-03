@@ -12,14 +12,18 @@ function ToastShelf() {
 
 
     React.useEffect(() => {
-        window.addEventListener('keydown', (event) => {
-            // Handle space bar key press inside the window
-            if (event.code === 'Escape') {
-                // Escape bar was pressed inside the window
-                console.log('Escape bar pressed inside the window');
-                closeAllToasts();
-            }
-        });
+        function handleKeyDown(event) {
+                // Handle space bar key press inside the window
+                if (event.code === 'Escape') {
+                    // Escape bar was pressed inside the window
+                    closeAllToasts();
+                }
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
     }, []);
 
 
