@@ -11,7 +11,7 @@ import VisuallyHidden from '../VisuallyHidden';
 
 import styles from './Toast.module.css';
 
-import { ToastContext } from '../ToastProvider';
+import {ToastContext} from '../ToastProvider';
 
 
 const ICONS_BY_VARIANT = {
@@ -24,7 +24,7 @@ const ICONS_BY_VARIANT = {
 function Toast({toast}) {
     const Icon = ICONS_BY_VARIANT[toast.variant];
 
-    const { dismissToast } = React.useContext(ToastContext);
+    const {dismissToast} = React.useContext(ToastContext);
 
 
     return (
@@ -32,12 +32,17 @@ function Toast({toast}) {
             <div className={styles.iconContainer}>
                 <Icon size={24}/>
             </div>
-            <p className={styles.content}>
-                {toast.message}
-            </p>
-            <button className={styles.closeButton} onClick={()=> dismissToast(toast.id)}>
+            <div className={styles.content}>
+                <div className="VisuallyHidden_wrapper">
+                    {toast.variant} -
+                </div>
+                <p>{toast.message}</p>
+            </div>
+            <button className={styles.closeButton} onClick={() => dismissToast(toast.id)}
+                    aria-label="Dismiss message"
+                    aria-live="off"
+            >
                 <X size={24}/>
-                <VisuallyHidden>Dismiss message</VisuallyHidden>
             </button>
         </div>
     );
