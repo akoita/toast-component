@@ -5,27 +5,14 @@ import styles from './ToastShelf.module.css';
 
 import {ToastContext} from '../ToastProvider';
 
+import useEscapeKey from '../../hooks/useEscapeKey';
+
 function ToastShelf() {
     const {toasts} = React.useContext(ToastContext);
 
     const {closeAllToasts} = React.useContext(ToastContext);
 
-
-    React.useEffect(() => {
-        function handleKeyDown(event) {
-                // Handle space bar key press inside the window
-                if (event.code === 'Escape') {
-                    // Escape bar was pressed inside the window
-                    closeAllToasts();
-                }
-        }
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, []);
-
+    useEscapeKey(closeAllToasts);
 
     return (
         <ol className={styles.wrapper}
